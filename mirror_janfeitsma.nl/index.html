@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+ 
+<html lang="en">
+<head>
+   <title>The Pseudoprimes below 2^64 - main page - janfeitsma.nl</title>
+   <link rel="stylesheet" type="text/css" href="/layout/main.css" />
+   
+</head>
+<body>
+
+<div id="header_box">
+
+   <div id="lang_box">
+      
+      <form method="post" name="speedlangform">
+      <table align="right" border="0" cellspacing="3" cellpadding="3" class="languageSelect">
+         <tr>
+                        <td>
+               <input type="image" src="/images/nl.gif" name="lang" value="nl">
+            </td>
+            <td class="currlang">
+               <input type="image" src="/images/en.gif" name="lang" value="en">
+            </td>
+         </tr>
+      </table>
+      </form>
+   </div>
+
+   <br/>
+
+   <hr>
+
+</div>
+ 
+
+
+<div id="container"> 
+<div id=info_box>
+
+<b>
+<span id="errors"></span>
+<span id="warnings"></span>
+</b>
+
+</div> 
+<h1>Pseudoprimes</h1>
+
+         <b>main page</b>
+         &nbsp;&nbsp;
+         <a href="database.html">database</a>
+         &nbsp;&nbsp;
+         <a href="statistics.html">statistics</a>
+         &nbsp;&nbsp;
+         <a href="verification.html">verification</a>
+         &nbsp;&nbsp;
+
+<br/>
+<h3>Introduction</h3>
+
+<!-- Remove, assume visitors have plenty of background knowledge.
+
+<a href="http://en.wikipedia.org/wiki/Prime_numbers">Prime numbers</a> are integers which are not divisible by any number smaller than themselves, except 1. The first few primes are 2, 3, 5, 7, 11, 13, 17, etcetera. There are infinitely many prime numbers, which play an important role in number theory and, more practically, data encryption. If an integer is not prime, then we say it is <i>composite</i>. <br/><br/>
+
+When one wants to test a number n on primality (i.e. see if n is either prime or composite), certain properties of prime numbers can be used to do so. <a href="http://en.wikipedia.org/wiki/Fermat's_little_theorem">Fermat&#039;s little theorem</a> states that each prime p has the following property: 2<sup>p-1</sup> mod p = 1. Thus, if we compute 2<sup>n-1</sup> mod n for a general integer and see that it does not equal 1, then we can conclude that n is composite. However, if 2<sup>n-1</sup> mod n = 1, this does <b>not</b> guarantee that n is prime. There exist many odd composite numbers which pass the test - we call them (Fermat, base 2) <a href="http://en.wikipedia.org/wiki/Pseudoprime">pseudoprimes</a>. <br/><br/>
+-->
+
+In 2002, <a href="http://www.math.uiuc.edu/~galway/">William Galway</a> compiled a complete <a href="http://oldweb.cecm.sfu.ca/pseudoprime/">list</a> of base-2 <a href="http://en.wikipedia.org/wiki/Fermat_pseudoprime">Fermat pseudoprimes</a> up until x = 10<sup>15</sup>, enumerating 1,801,533 pseudoprimes. This webpage is an effort to verify his work, and to extend it to <b>x = 2<sup>64</sup>-1</b> = 1.84 &middot; 10<sup>19</sup>. Such a list could be used for instance to construct fast reliable 64-bit primality test a-la <a href=cr.yp.to/bib/1993/jaeschke.pdf>Jaeschke</a>.
+
+<h3>Project status</h3>
+Many CPU years have been spent on the computating facilities of the <a href=http://www.rug.nl/cit/hpcv>University of Groningen</a>. The search ended in 2009 already, the resulting <a href=http://www.cecm.sfu.ca/Pseudoprimes/index-2-to-64.html>2<sup>64</sup> list</a> soon found its way to the web. Unfortunately, Galway and myself never found the time nor energy to properly finalize the project in the form of an article...
+However, more and more results have become relying on it, which calls for a better-late-than-never update of this webpage to disclose the algorithms and facilitate double-checking and such. <br/><br/>
+
+As of February 2013 most notes are available here so anyone can check them. This means I consider the project finished. Any <a href=/contact>comments</a> are welcome though! 
+
+<h3>Search strategy</h3>
+The pseudoprimes are divided into two categories:
+<ul>
+<li><a href="sqrt-smooth.html">category S</a>: n is n<sup>1/2</sup>-<a href="http://en.wikipedia.org/wiki/Smooth_number">smooth</a>, i.e. all primes p which divide n satisfy p &le; n<sup>1/2</sup>.
+<li><a href="not-sqrt-smooth.html">category E</a>: n is divisible by a prime q greater than n<sup>1/2</sup>.
+</ul>
+
+A pseudoprime n is either in category S or in E. <br/>
+Special attention is given to <a href="wieferich.html">non-squarefree pseudoprimes</a>, because some of these are missed by the category S search algorithm.
+
+<h3>Acknowledgements</h3>
+The article of William Galway inspired me to start this project in the first place. <a href="http://www.math.rug.nl/~top/">Jaap Top</a> assisted with some algebraic details. All calculations were performed on machines from the <a href="http://www.rug.nl/cit/hpcv">University of Groningen</a>, with help from <a href="http://www.rug.nl/cit/hpcv/people/arnold/index">Arnold Meijster</a>. David Cleaver and <a href=http://gilchrist.ca/jeff/>Jeff Gilchrist</a> have performed quite a lot of double-checking effort. Specialized assembly code from Geoffrey Reynolds took many years off the total required computation time.
+
+</div>
+
+
+
+<div id="footer">
+<hr>
+
+<table border=0 width=100%>
+   <tr>
+      <td align=left>
+Last modified: 01-03-2013 <br/>
+      </td>
+      <td align=right>
+<a href="/contact">contact</a>
+      </td>
+   </tr>
+</div>
+
+
+</body>
+</html>

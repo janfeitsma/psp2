@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+ 
+<html lang="en">
+<head>
+   <title>janfeitsma.nl - math/psp2/not-sqrt-smooth</title>
+   <link rel="stylesheet" type="text/css" href="/layout/main.css" />
+   
+</head>
+<body>
+
+<div id="header_box">
+
+   <div id="lang_box">
+      
+      <form method="post" name="speedlangform">
+      <table align="right" border="0" cellspacing="3" cellpadding="3" class="languageSelect">
+         <tr>
+                        <td>
+               <input type="image" src="/images/nl.gif" name="lang" value="nl">
+            </td>
+            <td class="currlang">
+               <input type="image" src="/images/en.gif" name="lang" value="en">
+            </td>
+         </tr>
+      </table>
+      </form>
+   </div>
+
+   <br/>
+
+   <hr>
+
+</div>
+ 
+
+
+<div id="container"> 
+<div id=info_box>
+
+<b>
+<span id="errors"></span>
+<span id="warnings"></span>
+</b>
+
+</div> 
+<h1>Pseudoprimes</h1>
+
+         <a href="index.html">main page</a>
+         &nbsp;&nbsp;
+         <a href="database.html">database</a>
+         &nbsp;&nbsp;
+         <a href="statistics.html">statistics</a>
+         &nbsp;&nbsp;
+         <a href="verification.html">verification</a>
+         &nbsp;&nbsp;
+
+<br/>
+
+<h2>Category E: n is not n<sup>1/2</sup>-smooth</h2>
+
+<h3>Search strategy</h3>
+
+Each pseudoprime n in this category has a large prime divisor p and a smaller cofactor s. If we write r = <a href="rho.html">rho</a>(p), then s &ge; r + 1 (because s = 1 mod r), hence p &le; x / (r+1) with x = 2<sup>64</sup>-1. For odd r, we can improve the bound on p since the smallest s candidate is 2r+1: p &le; x / (2r+1). <br/><br/>
+
+Given pairs (r,p), the associated pseudoprimes can be easily computed by iteration over s and testing if p*s mod rho(s) = 1. <br/><br/>
+
+All primes p with fixed r = rho(p) follow from the factorization of the <a href="http://en.wikipedia.org/wiki/Mersenne_number">Mersenne number</a> M(r) = 2<sup>r</sup> - 1. For r &lt; 859 all Mersenne factorizations are complete. Beyond that, factorizations are tracked by <a href="http://www.garlic.com/~wedgingt/mersenne.html">Will Edgington</a> and <a href=www.factordb.com>www.factordb.com</a>. <br/><br/>
+
+The main computational work went into this search: tens of CPU years. Even though for small Mersenne numbers the ECM efforts would make it practically impossible that small factors would be found by trial division, those numbers were tested by trial division anyway. All factors found were submitted to factordb and GIMPS (TODO check?).<br/><br/>
+
+Special thanks go to Geoff Reynolds for his optimized assembly implementations of <a href=expmod.html>modular exponentation</a>, which <b>greatly</b> sped up computations.
+
+</div>
+
+
+
+<div id="footer">
+<hr>
+
+<table border=0 width=100%>
+   <tr>
+      <td align=left>
+Last modified: 01-03-2013 <br/>
+      </td>
+      <td align=right>
+<a href="/contact">contact</a>
+      </td>
+   </tr>
+</div>
+
+
+</body>
+</html>

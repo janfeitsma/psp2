@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+ 
+<html lang="en">
+<head>
+   <title>janfeitsma.nl - math/psp2/rho</title>
+   <link rel="stylesheet" type="text/css" href="/layout/main.css" />
+   
+</head>
+<body>
+
+<div id="header_box">
+
+   <div id="lang_box">
+      
+      <form method="post" name="speedlangform">
+      <table align="right" border="0" cellspacing="3" cellpadding="3" class="languageSelect">
+         <tr>
+                        <td>
+               <input type="image" src="/images/nl.gif" name="lang" value="nl">
+            </td>
+            <td class="currlang">
+               <input type="image" src="/images/en.gif" name="lang" value="en">
+            </td>
+         </tr>
+      </table>
+      </form>
+   </div>
+
+   <br/>
+
+   <hr>
+
+</div>
+ 
+
+
+<div id="container"> 
+<div id=info_box>
+
+<b>
+<span id="errors"></span>
+<span id="warnings"></span>
+</b>
+
+</div> 
+<h1>Pseudoprimes</h1>
+
+         <a href="index.html">main page</a>
+         &nbsp;&nbsp;
+         <a href="database.html">database</a>
+         &nbsp;&nbsp;
+         <a href="statistics.html">statistics</a>
+         &nbsp;&nbsp;
+         <a href="verification.html">verification</a>
+         &nbsp;&nbsp;
+
+<br/>
+<h2>The rho function</h2>
+
+<h3>Definition</h3>
+Let q be an odd number greater than 1. <b>rho(q)</b> denotes the order of 2 in the multiplicative group modulo q. In the <i>Mathematica</i> symbolic programming language:
+
+<pre>rho[q_?OddQ] := MultiplicativeOrder[2, q];</pre>
+
+<h3>Mersenne factorizations</h3>
+An equivalent formulation is that rho(q) is the least r such that q | M(r), where M(r) is the <a href="http://mathworld.wolfram.com/MersenneNumber.html">Mersenne number</a> M(r) = 2<sup>r</sup> - 1. For small r &lt; 823, factorizations of M(r) are completely known. Incompletely factored Mersenne numbers and their factorization status are tracked by <a href="http://www.garlic.com/~wedgingt/mersenne.html">Will Edgington</a>.
+
+<h3>Properties</h3>
+
+<ul>
+<li>n is prime or pseudoprime if and only if rho(n) | n-1
+<li>rho(lcm(a, b)) = lcm(rho(a), rho(b))
+<li>for a pseudoprimes n = q &middot; s we have
+<ul>
+<li>q = s<sup>-1</sup> mod rho(s)
+<li>s = q<sup>-1</sup> mod rho(q)
+</ul>
+</ul>
+
+<h3>Some values</h3>
+
+<table border=1>
+ <tr>
+  <td width=80 align=center><b>q</b></td>
+  <td width=40 align=center>3</td>
+  <td width=40 align=center>5</td>
+  <td width=40 align=center>7</td>
+  <td width=40 align=center>9</td>
+  <td width=40 align=center>11</td>
+  <td width=40 align=center>13</td>
+  <td width=40 align=center>15</td>
+  <td width=40 align=center>17</td>
+  <td width=40 align=center>19</td>
+  <td width=40 align=center>21</td>
+  <td width=40 align=center>23</td>
+  <td width=40 align=center>25</td>
+  <td width=40 align=center>27</td>
+  <td width=40 align=center>29</td>
+  <td width=40 align=center>31</td>
+  <td width=40 align=center>...</td>
+ </tr>
+ <tr>
+  <td width=80 align=center><b>rho(q)</b></td>
+  <td width=40 align=center>2</td>
+  <td width=40 align=center>4</td>
+  <td width=40 align=center>3</td>
+  <td width=40 align=center>6</td>
+  <td width=40 align=center>10</td>
+  <td width=40 align=center>12</td>
+  <td width=40 align=center> 4</td>
+  <td width=40 align=center> 8</td>
+  <td width=40 align=center>18</td>
+  <td width=40 align=center> 6</td>
+  <td width=40 align=center>11</td>
+  <td width=40 align=center>20</td>
+  <td width=40 align=center>18</td>
+  <td width=40 align=center>28</td>
+  <td width=40 align=center> 5</td>
+  <td width=40 align=center>...</td>
+ </tr> 
+</table>
+
+<br/>
+
+
+<table border=1>
+ <tr>
+  <td width=280 align=center><b>r</b></td>
+  <td width=40 align=center>2</td>
+  <td width=40 align=center>3</td>
+  <td width=40 align=center>4</td>
+  <td width=40 align=center>5</td>
+  <td width=40 align=center>6</td>
+  <td width=40 align=center>7</td>
+  <td width=40 align=center>8</td>
+  <td width=40 align=center>9</td>
+  <td width=40 align=center>10</td>
+  <td width=40 align=center>11</td>
+  <td width=40 align=center>12</td>
+  <td width=40 align=center>13</td>
+  <td width=40 align=center>...</td>
+ </tr>
+ <tr>
+  <td width=280 align=center><b>all primes p such that rho(p) = r</b></td>
+  <td width=40 align=center>3</td>
+  <td width=40 align=center>7</td>
+  <td width=40 align=center>5</td>
+  <td width=40 align=center>31</td>
+  <td width=40 align=center>(none)</td>
+  <td width=40 align=center>127</td>
+  <td width=40 align=center>17</td>
+  <td width=40 align=center>73</td>
+  <td width=40 align=center>11</td>
+  <td width=40 align=center>23, 89</td>
+  <td width=40 align=center>13</td>
+  <td width=40 align=center>8191</td>
+  <td width=40 align=center>...</td>
+ </tr> 
+</table>
+
+<h3>Computation of rho(q)</h3>
+
+If p is prime, then rho(p) is a divisor of p-1. Computing rho(p) is as difficult as factoring p-1. <br/><br/>
+
+We compute rho(p<sup>a</sup>) by dumb iteration, since rho(p) | rho(p<sup>a</sup>).<br/><br/>
+
+In general, rho(n) with n = p<sub>1</sub><sup>a<sub>1</sub></sup>p<sub>2</sub><sup>a<sub>2</sub></sup>...p<sub>k</sub><sup>a<sub>k</sub></sup>... can be computed by taking least common multiples over all rho(p<sub>i</sub><sup>a<sub>i</sub></sup>). Again, we see that this is as hard as factoring n.<br/><br/>
+
+Using a cache of rho values greatly speeds up computation of rho(n) because we practically never have to completely factor n. We have enumerated the rho values of all 32-bit odd numbers in a 8GB database (4 bytes times 2<sup>31</sup> numbers).
+
+</div>
+
+
+
+<div id="footer">
+<hr>
+
+<table border=0 width=100%>
+   <tr>
+      <td align=left>
+Last modified: 01-03-2013 <br/>
+      </td>
+      <td align=right>
+<a href="/contact">contact</a>
+      </td>
+   </tr>
+</div>
+
+
+</body>
+</html>

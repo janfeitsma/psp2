@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+ 
+<html lang="en">
+<head>
+   <title>janfeitsma.nl - math/psp2/expmod</title>
+   <link rel="stylesheet" type="text/css" href="/layout/main.css" />
+   
+</head>
+<body>
+
+<div id="header_box">
+
+   <div id="lang_box">
+      
+      <form method="post" name="speedlangform">
+      <table align="right" border="0" cellspacing="3" cellpadding="3" class="languageSelect">
+         <tr>
+                        <td>
+               <input type="image" src="/images/nl.gif" name="lang" value="nl">
+            </td>
+            <td class="currlang">
+               <input type="image" src="/images/en.gif" name="lang" value="en">
+            </td>
+         </tr>
+      </table>
+      </form>
+   </div>
+
+   <br/>
+
+   <hr>
+
+</div>
+ 
+
+
+<div id="container"> 
+<div id=info_box>
+
+<b>
+<span id="errors"></span>
+<span id="warnings"></span>
+</b>
+
+</div> 
+<h1>Pseudoprimes</h1>
+
+         <a href="index.html">main page</a>
+         &nbsp;&nbsp;
+         <a href="database.html">database</a>
+         &nbsp;&nbsp;
+         <a href="statistics.html">statistics</a>
+         &nbsp;&nbsp;
+         <a href="verification.html">verification</a>
+         &nbsp;&nbsp;
+
+<br/>
+<h2>Modular exponentiation</h2>
+ 
+Modular exponentiation is the process of computing a<sup>e</sup> mod n. In this project it is a basic critical task, so we are highly concerned with its efficiency. <br/>
+
+For notation purposes, we introduce the following shorthands:
+<pre>
+typedef unsigned long long u64;
+typedef signed long long i64;
+</pre>
+
+<h3>Generic 64 bit code</h3>
+
+These 64-bit implementations are made by Arnold Meijster and Harm Bakker.
+
+<h3>C code</h3>
+<hr>
+
+<pre>
+u64 mulmod64(u64 a, u64 b, u64 n) {
+   /* Pre: 0 <= a, b < n */
+   /* returns: (a * b) % n */
+   u64 c, h;
+   if (b < a) {
+      /* swap a and b */
+      h = a; a = b; b = h;
+   }
+   c = 0;
+   while (a != 0) {
+      if (a & 1) {
+         if (b >= n - c) c = b - (n - c);
+         else c += b;
+      }
+      a >>= 1;
+      if (b >= n - b) b = b - (n - b);
+      else b <<= 1;
+   }
+   return c;
+}
+
+u64 expmod64(u64 a, u64 e, u64 n) {
+   /* Pre: 0 <= a, e < n */
+   /* returns: (a ^ e) % n */
+   u64 c = 1;
+   while (e > 0) {
+      if ((e & 1) > 0) c = mulmod64(a, c, n);
+      e >>= 1;
+      a = mulmod64(a, a, n);
+   }
+   return c;
+}
+</pre>
+
+<hr>
+Typical performance: 50,000 modular exponentations per second on an Opteron 2Ghz core.
+
+
+<h3>Optimized specializations</h3>
+
+On the <a href="http://www.mersenneforum.org">Mersenne forums</a> state of the art primality and factorization projects are discussed. <a href="http://www.mersenneforum.org/showthread.php?t=5785">This discussion</a> pointed me to some highly optimized code from Geoffrey Reynolds, <a href="http://www.geocities.com/g_w_reynolds/sr5sieve/">located here</a> (in arithmetic.c from the newest stable package). 
+
+<h3>52-bit C code</h3>
+Due to rounding errors, the following code may produce incorrect results when arguments have more than 52 bits.<br/>
+
+<hr>
+
+<pre>
+double one_over_n;
+u64 mulmod52(u64 a, u64 b, u64 n) {
+   i64 tmp, ret;
+   register double x, y;
+   x = (i64)a;
+   y = (i64)b;
+   tmp = (i64)n * (i64)(x * y * one_over_n);
+   ret = a * b - tmp;
+   if (ret < 0) ret += n;
+   else if (ret >= (i64)n) ret -= n;
+   return ret;
+}
+</pre>
+
+<hr>
+The associated version of expmod52 is similar to expmod64, the only difference being that one_over_n must be set. </br>
+
+Typical performance: 600,000 mod. exp. per second on an Opteron 2Ghz core.<br/>
+
+<h3>i386 assembler routines</h3>
+
+Works only on 62 bit arguments. Typical performance: 1,500,000 mod. exp. per second on an Opteron 2Ghz core.<br/>
+This code is currently the best we know of. It is used heavily in the <a href="not-sqrt-smooth.html">category E search</a> to find factors of 2<sup>r</sup>-1 by trial division.
+
+
+
+</div>
+
+
+
+<div id="footer">
+<hr>
+
+<table border=0 width=100%>
+   <tr>
+      <td align=left>
+Last modified: 01-03-2013 <br/>
+      </td>
+      <td align=right>
+<a href="/contact">contact</a>
+      </td>
+   </tr>
+</div>
+
+
+</body>
+</html>

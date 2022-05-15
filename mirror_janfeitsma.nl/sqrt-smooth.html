@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+ 
+<html lang="en">
+<head>
+   <title>janfeitsma.nl - math/psp2/sqrt-smooth</title>
+   <link rel="stylesheet" type="text/css" href="/layout/main.css" />
+   
+</head>
+<body>
+
+<div id="header_box">
+
+   <div id="lang_box">
+      
+      <form method="post" name="speedlangform">
+      <table align="right" border="0" cellspacing="3" cellpadding="3" class="languageSelect">
+         <tr>
+                        <td>
+               <input type="image" src="/images/nl.gif" name="lang" value="nl">
+            </td>
+            <td class="currlang">
+               <input type="image" src="/images/en.gif" name="lang" value="en">
+            </td>
+         </tr>
+      </table>
+      </form>
+   </div>
+
+   <br/>
+
+   <hr>
+
+</div>
+ 
+
+
+<div id="container"> 
+<div id=info_box>
+
+<b>
+<span id="errors"></span>
+<span id="warnings"></span>
+</b>
+
+</div> 
+<h1>Pseudoprimes</h1>
+
+         <a href="index.html">main page</a>
+         &nbsp;&nbsp;
+         <a href="database.html">database</a>
+         &nbsp;&nbsp;
+         <a href="statistics.html">statistics</a>
+         &nbsp;&nbsp;
+         <a href="verification.html">verification</a>
+         &nbsp;&nbsp;
+
+<br/>
+<h2>Category S: n is n<sup>1/2</sup>-smooth</h2>
+
+<h3>Main strategy</h3>
+
+We want to enumerate pseudoprimes which have no 'large' prime factor. More precisely: enumerate all pseudoprimes n with no prime factor larger than n<sup>1/2</sup>. The idea is to form pairs (q, rho(q)), for each pair iterating over all s &lt; q, s = q<sup>-1</sup> mod rho(q), testing if n = q &middot; s is a pseudoprime.
+
+<h3>Search restrictions for q</h3>
+As normally, we write n = q &middot; s with 1 &lt; s &le; q both odd. The smoothness condition gives us that <b>q is composite</b> and has no prime divisors exceeding n<sup>1/2</sup>. We only need to consider <b>q &le; x<sup>2/3</sup></b>, the proof follows. <br/><br/>
+
+Assume we have a pseudoprime n' = q' &middot; s' in S with q' &gt; x<sup>2/3</sup>. We can write q' = q<sub>1</sub> &middot; q<sub>2</sub> with q<sub>2</sub> &le; q<sub>1</sub> &le; x<sup>1/2</sup>. This gives us q<sub>1</sub> &gt; x<sup>1/3</sup>. We only consider n' &le; x, so we have s' &lt; x<sup>1/3</sup> and s' &middot; q<sub>2</sub> &lt; x<sup>2/3</sup>. This shows that this pseudoprime will be found for either q = s' &middot; q<sub>2</sub> or q = q<sub>1</sub>, whichever is the largest, concluding the proof. <br/><br/>
+
+Writing q = q<sub>1</sub> &middot; q<sub>2</sub>, it suffices to only consider q<sub>1</sub> &le; x<sup>1/2</sup>, since small factors from q<sub>1</sub> can be transferred to q<sub>2</sub> if q<sub>1</sub> exceeds x<sup>1/2</sup>. Proof: suppose q<sub>1</sub> &gt; x<sup>1/2</sup>, and write q<sub>1</sub> = q<sub>1a</sub>q<sub>1b</sub>. The smoothness condition yields we can take both q<sub>1a</sub>, q<sub>1b</sub> &le; x<sup>1/2</sup>. Furthermore, one of both (let's say q<sub>1b</sub>) is smaller than x<sup>1/3</sup>. Then q<sub>2</sub> &middot; q<sub>1b</sub> &le; x<sup>1/2</sup>, proving the assertion. <br/><br/>
+
+Another useful restriction is gcd(q<sub>1</sub>, q<sub>2</sub>) = 1. This enables easy computation of rho(q) = lcm(rho(q<sub>1</sub>), rho(q<sub>2</sub>)). The problem with this restriction, is that <i>some</i> nonsquarefree pseudoprimes will be missed. These pseudoprimes are gathered in a <a href="wieferich.html">special search</a>. 
+
+<h3>Algorithm</h3>
+
+The entire 32 bit <a href="rho.html">rho</a> table is loaded into memory. This requires 8GB of memory, so the program should be run on a suitable machine. <br/><br/>
+
+We split the q range into 69815 blocks [q<sub>lo</sub>, q<sub>up</sub>] of 50 million odd q each. For each block we first tabulate pairs (q,rho(q)) during the so-called <i>prefill phase</i>. 
+
+The prefill phase constructs composite q = q<sub>1</sub> &middot; q<sub>2</sub>, q<sub>1</sub> &gt; q<sub>2</sub> coprime. When gcd(q<sub>2</sub>, rho(q<sub>2</sub>)) &gt; 1, then we can discard all multiples of q<sub>2</sub> since they will fail the gcd condition also. We only consider gcd(q<sub>1</sub>, q<sub>2</sub>) = 1 because this allows us to use rho(q) = lcm(rho(q<sub>1</sub>), rho(q<sub>2</sub>)). At the end of the prefill phase, which generally takes about 30 seconds per block on the SI01 machine, this generally yields 33 to 49% of pairs to work with. <br/><br/>
+
+For each pair (q, rho(q)) we construct and test pseudoprime candidates by iteration over s. The number of s to test is quite large for the lower 100 blocks, but decreases rapidly for increasing q. For every q a modular inverse must be computed, requiring about 10 seconds per block. We again discard some <a href="wieferich.html">nonsquarefree pseudoprimes</a> taking gcd(q, s) = 1, because this enables easy computation of rho(n) which is used to test n on pseudoprimality. <br/><br/>
+
+The output of this algorithm gives very many duplicate pseudoprimes, because most pseudoprimes can be written as q &middot; s with s &lt; q &le; x<sup>2/3</sup> in many ways.
+
+<h3>Results</h3>
+
+After a week of running on 8 cores of SI01 and some postprocessing, this category has been completed. <br/><br/>
+
+</body>
+</html>
+
+
+</div>
+
+
+
+<div id="footer">
+<hr>
+
+<table border=0 width=100%>
+   <tr>
+      <td align=left>
+Last modified: 01-03-2013 <br/>
+      </td>
+      <td align=right>
+<a href="/contact">contact</a>
+      </td>
+   </tr>
+</div>
+
+
+</body>
+</html>

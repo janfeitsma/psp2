@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+ 
+<html lang="en">
+<head>
+   <title>janfeitsma.nl - math/psp2/wieferich</title>
+   <link rel="stylesheet" type="text/css" href="/layout/main.css" />
+   
+</head>
+<body>
+
+<div id="header_box">
+
+   <div id="lang_box">
+      
+      <form method="post" name="speedlangform">
+      <table align="right" border="0" cellspacing="3" cellpadding="3" class="languageSelect">
+         <tr>
+                        <td>
+               <input type="image" src="/images/nl.gif" name="lang" value="nl">
+            </td>
+            <td class="currlang">
+               <input type="image" src="/images/en.gif" name="lang" value="en">
+            </td>
+         </tr>
+      </table>
+      </form>
+   </div>
+
+   <br/>
+
+   <hr>
+
+</div>
+ 
+
+
+<div id="container"> 
+<div id=info_box>
+
+<b>
+<span id="errors"></span>
+<span id="warnings"></span>
+</b>
+
+</div> 
+<h1>Pseudoprimes</h1>
+
+         <a href="index.html">main page</a>
+         &nbsp;&nbsp;
+         <a href="database.html">database</a>
+         &nbsp;&nbsp;
+         <a href="statistics.html">statistics</a>
+         &nbsp;&nbsp;
+         <a href="verification.html">verification</a>
+         &nbsp;&nbsp;
+
+<br/>
+<h2>W search: non-squarefree pseudoprimes</h2>
+
+In the <a href="sqrt-smooth.html">category S search</a> algorithm, we used coprime factors for easy <a href="rho.html">rho</a> computations. However, this causes some pseudoprimes to be missed. On this page we will investigate how to correct the problem. <br/>
+ 
+<h3>Wieferich primes</h3>
+
+If a pseudoprime n is divisible by a square p<sup>2</sup>, then p is a <a href="http://primes.utm.edu/glossary/page.php?sort=WieferichPrime">Wieferich prime</a>. Proof: write n = p<sup>e</sup> &middot; m, such that e &ge; 2 and p does not divide m. Let k be the order of 2 in G = (Z/p<sup>e</sup>Z)*. We have that k | n-1, and also k divides |G| = p<sup>e-1</sup>(p-1). This implies that p cannot divide k, hence k | p-1, giving 2<sup>p-1</sup> = 1 mod p<sup>e</sup>. We conclude that p is a Wieferich prime. <br/><br/>
+
+The only known Wieferich primes are 1093 and 3511. There may be larger Wieferich primes, but not below x<sup>1/2</sup>, which is the range that concerns this project. We can now list the non-squarefree pseudoprimes. <br/>
+
+<h3>Only squares, no cubes</h3>
+
+There exist no 64-bit pseudoprimes which are divisible by a cube, because gcd(w<sup>3</sup>, rho(w<sup>3</sup>)) = w for both Wieferich primes w. 
+
+
+<h3>No cofactor</h3>
+Both n = 1093<sup>2</sup> and n = 3511<sup>2</sup> are pseudoprimes. Because they are not found by both search algorithms, we need to add them to the result list ourselves. 
+
+<h3>Prime cofactor</h3>
+
+If n = w<sup>2</sup> &middot; p with p prime, then the <a href="not-sqrt-smooth.html">category E search</a> will find all of these n for p &gt; w<sup>2</sup>. We need to search p &lt; w<sup>2</sup> separately. This gives the following pseudoprimes:
+
+<ul>
+<li>w = 1093: 5654273717, 26092328809, 31310555641, 237865367741, 333967711897, 601401837037
+<li>w = 3511: 129816911251, 259621495381, 346157884801, 12634325182441, 24273469559431, 57114029344321
+</ul>
+
+<h3>Composite cofactor</h3>
+
+Because the <a href="not-sqrt-smooth.html">category E search</a> does not miss any of these pseudoprimes, we only need to look at n in S.<br/>
+Write n = w<sup>2</sup> &middot; q, q = q<sub>1</sub> &middot; q<sub>2</sub> with q<sub>1</sub> &gt; q<sub>2</sub> > 1 coprime. Note that q<sub>1</sub> < x<sup>2/3</sup> because q<sub>2</sub> &middot; w<sup>2</sup> > x<sup>1/3</sup> for both Wieferich primes w. <br/>
+<ul>
+<li> If q<sub>1</sub> &gt; q<sub>2</sub> &middot; w<sup>2</sup>, then n will be found in S(q<sub>1</sub>).
+<li> If q<sub>1</sub> &lt; q<sub>2</sub> &middot; w<sup>2</sup>, then n will be found in S(q<sub>2</sub> &middot; w<sup>2</sup>).
+</ul>
+With S(q) we denote the set of pseudoprimes found by the <a href="sqrt-smooth.html">category S algorithm</a> at q.
+
+</div>
+
+
+
+<div id="footer">
+<hr>
+
+<table border=0 width=100%>
+   <tr>
+      <td align=left>
+Last modified: 01-03-2013 <br/>
+      </td>
+      <td align=right>
+<a href="/contact">contact</a>
+      </td>
+   </tr>
+</div>
+
+
+</body>
+</html>
