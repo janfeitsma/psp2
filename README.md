@@ -35,7 +35,7 @@ C  2465 5 17 29
 
 # Details
 
-Old html files can be found here: TODO check in old html files.
+Old html files can be found here: [mirror_janfeitsma.nl](mirror_janfeitsma.nl/index.html).
 
 (If someone wants to help making this nicer / readable, a pull request is always welcome!)
 
